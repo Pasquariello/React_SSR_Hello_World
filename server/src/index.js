@@ -1,12 +1,21 @@
 // this is the root file for application 
 // this is an express server
+// Because we are now using webpack on the server we can use es2015 syntax on the server!
+// BEFORE: 
+// const express = require('express');
+// const app = express();
+// // require react dom library to handle converting componenets to string to ship to browser
+// const React = require('react');
+// const renderToString = require('react-dom/Server').renderToString;
+// const Home = require ('./client/components/Home').default;
 
-const express = require('express');
+// AFTER: 
+import express from 'express';
+import React from  'react';
+import { renderToString } from 'react-dom/server';
+import Home from './client/components/Home';
+
 const app = express();
-// require react dom library to handle converting componenets to string to ship to browser
-const React = require('react');
-const renderToString = require('react-dom/Server').renderToString;
-const Home = require ('./client/components/Home').default;
 
 // route handlers
 // route to listen to root route of app

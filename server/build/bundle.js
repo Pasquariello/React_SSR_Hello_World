@@ -7034,15 +7034,35 @@ if (process.env.NODE_ENV === 'production') {
 "use strict";
 
 
+var _express = __webpack_require__(53);
+
+var _express2 = _interopRequireDefault(_express);
+
+var _react = __webpack_require__(15);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _server = __webpack_require__(111);
+
+var _Home = __webpack_require__(122);
+
+var _Home2 = _interopRequireDefault(_Home);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 // this is the root file for application 
 // this is an express server
+// Because we are now using webpack on the server we can use es2015 syntax on the server!
+// BEFORE: 
+// const express = require('express');
+// const app = express();
+// // require react dom library to handle converting componenets to string to ship to browser
+// const React = require('react');
+// const renderToString = require('react-dom/Server').renderToString;
+// const Home = require ('./client/components/Home').default;
 
-var express = __webpack_require__(53);
-var app = express();
-// require react dom library to handle converting componenets to string to ship to browser
-var React = __webpack_require__(15);
-var renderToString = __webpack_require__(111).renderToString;
-var Home = __webpack_require__(122).default;
+// AFTER: 
+var app = (0, _express2.default)();
 
 // route handlers
 // route to listen to root route of app
@@ -7050,7 +7070,7 @@ var Home = __webpack_require__(122).default;
 app.get('/', function (req, res) {
     console.log('Request to root made!');
     //attempt to render as string
-    var content = renderToString(React.createElement(Home, null)); // to to config server to run JSX
+    var content = (0, _server.renderToString)(_react2.default.createElement(_Home2.default, null)); // to to config server to run JSX
     //send back
     res.send(content);
 });
@@ -22787,7 +22807,18 @@ var Home = function Home() {
     return _react2.default.createElement(
         'div',
         null,
-        'Im the home component'
+        _react2.default.createElement(
+            'div',
+            null,
+            'Im the Best home component'
+        ),
+        _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                    return console.log('Hello Taylor');
+                } },
+            'Press Me!'
+        )
     );
 };
 
