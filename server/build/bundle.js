@@ -7056,13 +7056,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // BEFORE: 
 // const express = require('express');
 // const app = express();
-// // require react dom library to handle converting componenets to string to ship to browser
+// require react dom library to handle converting componenets to string to ship to browser
 // const React = require('react');
 // const renderToString = require('react-dom/Server').renderToString;
 // const Home = require ('./client/components/Home').default;
 
 // AFTER: 
 var app = (0, _express2.default)();
+// need to tell the world the public folder is publically available to the outside world
+app.use(_express2.default.static('public'));
 
 // route handlers
 // route to listen to root route of app
@@ -7071,8 +7073,10 @@ app.get('/', function (req, res) {
     console.log('Request to root made!');
     //attempt to render as string
     var content = (0, _server.renderToString)(_react2.default.createElement(_Home2.default, null)); // to to config server to run JSX
+    //tell the browser to sownload the public directory and stuff content into the HTML template
+    var html = '\n        <html>\n            <head></head>\n            <body>\n                <div id="root">' + content + '</div> \n                <script src="bundle.js"></script>\n            </body>\n        </html>\n    ';
     //send back
-    res.send(content);
+    res.send(html);
 });
 
 app.listen(3000, function () {
@@ -22810,7 +22814,7 @@ var Home = function Home() {
         _react2.default.createElement(
             'div',
             null,
-            'Im the Best home component'
+            'Im the home component'
         ),
         _react2.default.createElement(
             'button',
